@@ -42,4 +42,11 @@ class TriangleParserSpec extends AnyFlatSpec with Matchers {
 
     result shouldBe Left("Invalid triangle structure: row i must have exactly i+1 elements")
   }
+
+  it should "return Left for non-numeric input" in {
+    val lines = Iterator("7", "6 abc")
+    val result = TriangleParser.parse(lines)
+
+    result shouldBe Left("Invalid number in row 2: '6 abc'")
+  }
 }

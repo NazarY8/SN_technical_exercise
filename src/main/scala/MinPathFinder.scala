@@ -2,7 +2,8 @@ object MinPathFinder {
 
   case class PathResult(path: Vector[Long], sum: Long)
 
-  def findMinPath(triangle: Vector[Vector[Long]]): PathResult =
+  def findMinPath(triangle: Vector[Vector[Long]]): PathResult = {
+    require(triangle.nonEmpty, "Triangle must not be empty")
     if (triangle.length == 1)
       PathResult(triangle.head, triangle.head.head)
     else {
@@ -10,6 +11,7 @@ object MinPathFinder {
       val path = reconstructPath(triangle, choices)
       PathResult(path, path.sum)
     }
+  }
 
   // Bottom-up DP: for each node we compute the minimal sum to the bottom
   // and record which child index (i or i+1) gives that minimal path.
