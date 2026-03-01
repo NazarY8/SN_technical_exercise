@@ -11,6 +11,7 @@ lazy val root = (project in file("."))
     // and connectInput := true pipes stdin from the terminal into that process.
     // Without these two settings, `cat data.txt | sbt run` would result in
     // an empty stdin reaching our program.
+    Compile / mainClass := Some("Main"),
     run / fork := true,
     run / connectInput := true,
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test
