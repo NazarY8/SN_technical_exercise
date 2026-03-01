@@ -1,3 +1,4 @@
+import MinPathFinder.PathResult
 import scala.io.Source
 
 object Main {
@@ -7,13 +8,12 @@ object Main {
 
     result match {
       case Right(triangle) =>
-        println(s"Parsed triangle with ${triangle.length} rows")
-        triangle.headOption.foreach(row => println(s"First row: $row"))
-        triangle.lastOption.foreach(row => println(s"Last row: $row"))
+        val PathResult(path, sum) = MinPathFinder.findMinPath(triangle)
+        val pathStr = path.mkString(" + ")
+        println(s"Minimal path is: $pathStr = $sum")
       case Left(error) =>
         System.err.println(s"Error: $error")
         System.exit(1)
     }
   }
 }
-
