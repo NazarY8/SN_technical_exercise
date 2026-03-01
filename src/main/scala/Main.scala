@@ -1,15 +1,18 @@
+import scala.io.Source
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 object Main {
   def main(args: Array[String]): Unit = {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    (1 to 5).map(println)
+    val lines = Source.stdin.getLines()
+    val result = TriangleParser.parse(lines)
 
-    for (i <- 1 to 5) {
-      //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-      // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-      println(s"i = $i")
+    result match {
+      case Right(triangle) =>
+        println(s"Parsed triangle with ${triangle.length} rows")
+        triangle.headOption.foreach(row => println(s"First row: $row"))
+        triangle.lastOption.foreach(row => println(s"Last row: $row"))
+      case Left(error) =>
+        System.err.println(s"Error: $error")
+        System.exit(1)
     }
   }
 }
